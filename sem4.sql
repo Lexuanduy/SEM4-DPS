@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2019 at 04:18 PM
+-- Generation Time: May 23, 2019 at 04:38 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -33,8 +33,8 @@ CREATE TABLE `account` (
   `userName` varchar(50) NOT NULL,
   `passWord` text NOT NULL,
   `salt` text NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updateAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `createdAt` bigint(50) NOT NULL,
+  `updatedAt` bigint(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -48,8 +48,8 @@ CREATE TABLE `score` (
   `idStudent` varchar(50) NOT NULL,
   `score` int(2) NOT NULL,
   `accountId` varchar(50) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updateAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `createdAt` bigint(50) NOT NULL,
+  `updatedAt` bigint(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -66,12 +66,12 @@ CREATE TABLE `student` (
   `status` int(1) NOT NULL DEFAULT '1',
   `address` text CHARACTER SET utf8 NOT NULL,
   `cmnd` text NOT NULL,
-  `email` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `mediumScore` float NOT NULL,
   `rollNumber` varchar(50) NOT NULL,
-  `acco` varchar(50) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updateAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `accountId` varchar(50) NOT NULL,
+  `createdAt` bigint(50) NOT NULL,
+  `updatedAt` bigint(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -84,8 +84,8 @@ CREATE TABLE `subject` (
   `id` varchar(50) NOT NULL,
   `name` text CHARACTER SET utf8 NOT NULL,
   `status` int(1) DEFAULT '1',
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updateAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `createdAt` bigint(50) NOT NULL,
+  `updatedAt` bigint(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -99,7 +99,7 @@ ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
   ADD KEY `userName` (`userName`),
   ADD KEY `createdAt` (`createdAt`),
-  ADD KEY `updateAt` (`updateAt`);
+  ADD KEY `updateAt` (`updatedAt`);
 
 --
 -- Indexes for table `score`
@@ -109,7 +109,7 @@ ALTER TABLE `score`
   ADD KEY `idStudent` (`idStudent`),
   ADD KEY `score` (`score`),
   ADD KEY `createdAt` (`createdAt`),
-  ADD KEY `updateAt` (`updateAt`),
+  ADD KEY `updateAt` (`updatedAt`),
   ADD KEY `accountId` (`accountId`);
 
 --
@@ -118,8 +118,9 @@ ALTER TABLE `score`
 ALTER TABLE `student`
   ADD PRIMARY KEY (`rollNumber`),
   ADD KEY `createdAt` (`createdAt`),
-  ADD KEY `updateAt` (`updateAt`),
-  ADD KEY `acco` (`acco`);
+  ADD KEY `updateAt` (`updatedAt`),
+  ADD KEY `acco` (`accountId`),
+  ADD KEY `email` (`email`);
 
 --
 -- Indexes for table `subject`
@@ -127,7 +128,7 @@ ALTER TABLE `student`
 ALTER TABLE `subject`
   ADD PRIMARY KEY (`id`),
   ADD KEY `createdAt` (`createdAt`),
-  ADD KEY `updateAt` (`updateAt`);
+  ADD KEY `updateAt` (`updatedAt`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
