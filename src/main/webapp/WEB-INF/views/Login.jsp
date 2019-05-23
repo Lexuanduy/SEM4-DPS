@@ -5,6 +5,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container">
@@ -38,15 +42,13 @@
 												+ password,
 										type : 'POST',
 										success : function(data) {
-
+											alert("Login success");
+											window.location = "/students";
 										},
 										error : function(jqXHR, textStatus,
 												errorThrown) {
 											if (jqXHR.status == 404) {
-												alert("Account does not exist or was deleted!");
-											}
-											if (jqXHR.status == 403) {
-												alert("Wrong password. Please log in again!");
+												alert("Account does not exist or error passWord!");
 											}
 										}
 									});
