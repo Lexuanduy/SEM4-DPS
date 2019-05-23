@@ -3,8 +3,10 @@ package sem4.st.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class DBConnection {
+	static Logger logger = Logger.getLogger(DBConnection.class.getName());
 	private Connection cnn = null;
     private final String CONNECTION_URL = "jdbc:mysql://127.0.0.1:3306/";
     private final String DATABASE = "sem4";
@@ -26,7 +28,7 @@ public class DBConnection {
                 cnn = DriverManager.getConnection(CONNECTION_URL + DATABASE + UTF8_URL, USERNAME, PASSWORD);
             }
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        	logger.info(e.getMessage());
         }
         return cnn;
     }
@@ -37,7 +39,7 @@ public class DBConnection {
                 cnn.close();
             }
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        	logger.info(e.getMessage());
         }
     }
 }

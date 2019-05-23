@@ -1,15 +1,16 @@
 package sem4.st.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 import sem4.st.entities.Account;
 
 public class AccountModel {
+	static Logger logger = Logger.getLogger(AccountModel.class.getName());
 	public boolean register(Account account) {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
@@ -24,7 +25,7 @@ public class AccountModel {
 			ps.execute();
 			return true;
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.info(e.getMessage());
 		}
 		return false;
 	}
