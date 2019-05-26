@@ -9,7 +9,7 @@ public class DBConnection {
 	static Logger logger = Logger.getLogger(DBConnection.class.getName());
 	private Connection cnn = null;
     private final String CONNECTION_URL = "jdbc:mysql://127.0.0.1:3306/";
-    private final String DATABASE = "sem4";
+    private final String DATABASE = "sem4_refactor";
     private final String USERNAME = "root";
     private final String PASSWORD = "";
     private final String UTF8_URL = "?useUnicode=true&characterEncoding=utf-8";

@@ -4,29 +4,23 @@ public class Score {
 	public Score() {
 		super();
 	}
-	public String getIdSubject() {
-		return idSubject;
+	public Subject getSubject() {
+		return subject;
 	}
-	public void setIdSubject(String idSubject) {
-		this.idSubject = idSubject;
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
-	public String getIdStudent() {
-		return idStudent;
+	public Student getStudent() {
+		return student;
 	}
-	public void setIdStudent(String idStudent) {
-		this.idStudent = idStudent;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 	public int getScore() {
 		return score;
 	}
 	public void setScore(int score) {
 		this.score = score;
-	}
-	public String getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
 	}
 	public long getCreatedAt() {
 		return createdAt;
@@ -40,10 +34,10 @@ public class Score {
 	public void setUpdatedAt(long updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	private String idSubject;
-	private String idStudent;
+	
+	private Subject subject;
+	private Student student;
 	private int score;
-	private String accountId;
 	private long createdAt;
 	private long updatedAt;
 }
