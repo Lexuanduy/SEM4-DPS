@@ -17,7 +17,7 @@ public class StudentModel {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(
-					"insert into 'student' ('rollNumber', 'name', 'gender', 'bod', 'phone','status','address',"
+					"insert into student ('rollNumber', 'name', 'gender', 'bod', 'phone','status','address',"
 					+ "'cmnd','email','mediumScore','accountId','createdAt, 'updatedAt') "
 					+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, student.getRollNumber());
@@ -45,7 +45,7 @@ public class StudentModel {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(
-					"update 'student' set  'name' = ?, 'gender' = ?, 'bod' = ?, 'phone' = ?,"
+					"update student set  'name' = ?, 'gender' = ?, 'bod' = ?, 'phone' = ?,"
 					+ "'status' = ?,'address' = ?,'cmnd' = ?,'email' = ?,'mediumScore' = ?,'accountId' = ?,"
 					+ "'createdAt = ?, 'updatedAt' = ? where 'rollNumber' = ?");
 			ps.setString(13, student.getRollNumber());
@@ -73,7 +73,7 @@ public class StudentModel {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(
-					"delete from 'student' where 'rollNumber' = ?");
+					"delete from student where 'rollNumber' = ?");
 			ps.setString(1, rollNumber);
 			ps.execute();
 			return true;
@@ -83,14 +83,16 @@ public class StudentModel {
 		return false;
 	}
 	
-	public static List<Student> getStudentList(String studentName,int page) {
+	public static List<Student> listAllStudent(String studentName,String rollNumber,int page) {
+		logger.info("test - "+studentName+"-"+rollNumber+"-"+page);
 		List<Student> studentList = new ArrayList<Student>();
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
-			PreparedStatement ps = cnn.prepareStatement(
-					"select * from 'student' limit 10 offset ? where 'name' like N?");
-			ps.setInt(1, (page-1)*10);
-			ps.setString(2, "%"+studentName+"%");
+			PreparedStatement ps = cnn.prepareStatement("select * from student where 'name' like ? or 'rollNumber' like ? limit 10 offset ? ");
+			ps.setInt(3, (page-1)*10);
+			ps.setString(1, "%"+studentName+"%");
+			ps.setString(2, "%"+rollNumber+"%");
+			logger.info("query - "+ps.toString());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Student student = new Student();
