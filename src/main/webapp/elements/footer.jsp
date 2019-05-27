@@ -96,7 +96,6 @@
 			type : 'POST',
 			success : function(data) {
 				alert("Login success");
-				window.location = "/students";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				if (jqXHR.status == 404) {
