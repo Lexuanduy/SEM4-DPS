@@ -4,4 +4,28 @@
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>sem4.st.controller.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StudentController</servlet-name>
+    <servlet-class>sem4.st.controller.StudentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentController</servlet-name>
+    <url-pattern>/StudentController</url-pattern>
+     <url-pattern>/StudentController/list</url-pattern>
+      <url-pattern>/StudentController/edit</url-pattern>
+      <url-pattern>/StudentController/new</url-pattern>
+      <url-pattern>/StudentController/insert</url-pattern>
+      <url-pattern>/StudentController/delete</url-pattern>
+      <url-pattern>/StudentController/update</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

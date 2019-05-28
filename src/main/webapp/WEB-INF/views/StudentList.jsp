@@ -28,6 +28,7 @@
                 <th>Medium Score</th>
                 <th>Account ID</th>
                 <th>Email</th>
+                <th>Action</th>
             </tr>
             <c:forEach var="student" items="${listStudent}">
                 <tr>

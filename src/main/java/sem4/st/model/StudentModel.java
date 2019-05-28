@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,10 +18,10 @@ public class StudentModel {
 	public static boolean createStudent(Student student) {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
-			PreparedStatement ps = cnn.prepareStatement(
-					"insert into student ('rollNumber', 'name', 'gender', 'bod', 'phone','status','address',"
-					+ "'cmnd','email','mediumScore','accountId','createdAt, 'updatedAt') "
-					+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			String command = "insert into student (rollNumber, name, gender, bod, phone,status,address,"
+					+ "cmnd,email,mediumScore,accountId,createdAt, updatedAt) "
+					+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps = cnn.prepareStatement(command);
 			ps.setString(1, student.getRollNumber());
 			ps.setString(2, student.getName());
 			ps.setString(3, student.getGender());
@@ -45,10 +47,10 @@ public class StudentModel {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(
-					"update student set  'name' = ?, 'gender' = ?, 'bod' = ?, 'phone' = ?,"
-					+ "'status' = ?,'address' = ?,'cmnd' = ?,'email' = ?,'mediumScore' = ?,'accountId' = ?,"
-					+ "'createdAt = ?, 'updatedAt' = ? where 'rollNumber' = ?");
-			ps.setString(13, student.getRollNumber());
+					"update student set  name = ?, gender = ?, bod = ?, phone = ?,"
+					+ "status = ?,address = ?,cmnd = ?,email = ?,mediumScore = ?,accountId = ?,"
+					+ "updatedAt = ? where rollNumber = ?");
+			ps.setString(12, student.getRollNumber());
 			ps.setString(1, student.getName());
 			ps.setString(2, student.getGender());
 			ps.setLong(3, student.getBod());
@@ -59,8 +61,7 @@ public class StudentModel {
 			ps.setString(8, student.getEmail());
 			ps.setFloat(9, student.getMediumScore());
 			ps.setString(10, student.getAccountId());
-			ps.setLong(11, student.getCreatedAt());
-			ps.setLong(12, student.getUpdatedAt());
+			ps.setLong(11, student.getUpdatedAt());
 			ps.execute();
 			return true;
 		} catch (SQLException e) {
@@ -73,7 +74,7 @@ public class StudentModel {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(
-					"delete from student where 'rollNumber' = ?");
+					"delete from student where rollNumber = ?");
 			ps.setString(1, rollNumber);
 			ps.execute();
 			return true;
@@ -84,11 +85,12 @@ public class StudentModel {
 	}
 	
 	public static List<Student> listAllStudent(String studentName,String rollNumber,int page) {
-		logger.info("test - "+studentName+"-"+rollNumber+"-"+page);
+		logger.info("test3333 - "+studentName+"-"+rollNumber+"-"+page);
 		List<Student> studentList = new ArrayList<Student>();
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Connection cnn = DBConnection.getInstance().getConnection();
-			PreparedStatement ps = cnn.prepareStatement("select * from student where 'name' like ? or 'rollNumber' like ? limit 10 offset ? ");
+			PreparedStatement ps = cnn.prepareStatement("select * from student where name like ? and rollNumber like ? limit 10 offset ? ");
 			ps.setInt(3, (page-1)*10);
 			ps.setString(1, "%"+studentName+"%");
 			ps.setString(2, "%"+rollNumber+"%");
@@ -122,7 +124,11 @@ public class StudentModel {
 				student.setRollNumber(rollNum);
 				student.setStatus(status);
 				student.setUpdatedAt(updatedAt);
+				logger.info("test");
+				logger.info(sdf.format(new Date(bod)));
+				student.setBodString(sdf.format(new Date(bod)));
 				studentList.add(student);
+				System.out.println(student.toString());
 			}
 			return studentList;
 		} catch (SQLException e) {
@@ -134,6 +140,7 @@ public class StudentModel {
 	public static Student searchByRollNumber(String rollNumber) {
 		Student student = new Student();
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Connection cnn = DBConnection.getInstance().getConnection();
 			Statement stt = cnn.createStatement();
 			ResultSet rs = stt.executeQuery("SELECT * FROM student WHERE rollNumber = '" + rollNumber + "'");
@@ -165,6 +172,7 @@ public class StudentModel {
 				student.setRollNumber(rollNum);
 				student.setStatus(status);
 				student.setUpdatedAt(updatedAt);
+				student.setBodString(sdf.format(new Date(bod)));
 			}
 		} catch (SQLException ex) {
 		}

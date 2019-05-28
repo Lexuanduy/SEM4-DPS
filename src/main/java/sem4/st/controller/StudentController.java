@@ -2,11 +2,13 @@ package sem4.st.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,7 @@ import sem4.st.model.StudentModel;
 /**
  * Servlet implementation class StudentController
  */
-@WebServlet("/StudentController")
+//@WebServlet("/StudentController")
 public class StudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,25 +37,30 @@ public class StudentController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getServletPath();
-
+		System.out.println("action - "+action);
 		try {
 			switch (action) {
-			case "/new":
+			case "/StudentController/list":
+				System.out.println("ok1");
+				listStudent(request, response);
+			break;
+			case "/StudentController/new":
 				showNewForm(request, response);
 				break;
-			case "/insert":
+			case "/StudentController/insert":
 				insertStudent(request, response);
 				break;
-			case "/delete":
+			case "/StudentController/delete":
 				deleteStudent(request, response);
 				break;
-			case "/edit":
+			case "/StudentController/edit":
 				showEditForm(request, response);
 				break;
-			case "/update":
+			case "/StudentController/update":
 				updateStudent(request, response);
 				break;
 			default:
+				System.out.println("ok");
 				listStudent(request, response);
 				break;
 			}
@@ -72,9 +79,12 @@ public class StudentController extends HttpServlet {
 	
 	private void listStudent(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		String rollNumber = request.getParameter("rollNumber").isEmpty() ? "" : request.getParameter("rollNumber");
-		String name = request.getParameter("name").equals(null)  ? "" : request.getParameter("name");
-		int page = request.getParameter("page").equals(null)  ? 1 : Integer.parseInt(request.getParameter("page"));
+		String rollNumber = request.getParameter("rollNumber") == null ? "" : request.getParameter("rollNumber");
+		String name = request.getParameter("name") == null  ? "" : request.getParameter("name");
+		int page = request.getParameter("page") == null  ? 1 : Integer.parseInt(request.getParameter("page"));
+		System.out.println("roll: "+rollNumber);
+		System.out.println("name: "+name);
+		System.out.println("page: "+page);
 		List<Student> listStudent = StudentModel.listAllStudent(name,rollNumber,page);
 		request.setAttribute("listStudent", listStudent);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/StudentList.jsp");
@@ -89,8 +99,9 @@ public class StudentController extends HttpServlet {
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
-		String rollNumber = request.getParameter("rollNumber");
+		String rollNumber = request.getParameter("rollNumber") == null ? "" : request.getParameter("rollNumber");
 		Student existingStudent = StudentModel.searchByRollNumber(rollNumber);
+		System.out.println(existingStudent.toString());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/StudentForm.jsp");
 		request.setAttribute("student", existingStudent);
 		dispatcher.forward(request, response);
@@ -107,17 +118,26 @@ public class StudentController extends HttpServlet {
 		String cmnd = request.getParameter("cmnd");
 		String email = request.getParameter("email");
 		String accountId = request.getParameter("accountId");
+		System.out.println(request.getParameter("mediumScore"));
 		Float mediumScore = Float.parseFloat(request.getParameter("mediumScore"));
 		int status = Integer.parseInt(request.getParameter("status"));
-		long bod = Long.parseLong(request.getParameter("bod"));
-		long createdAt = Long.parseLong(request.getParameter("createdAt"));
-		long updatedAt = Long.parseLong(request.getParameter("updatedAt"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		long bod = 0;
+		try {
+			Date datebirth = sdf.parse(request.getParameter("bod"));
+			bod =  datebirth.getTime();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		long createdAt = Long.parseLong(request.getParameter("createdAt"));
+//		long updatedAt = Long.parseLong(request.getParameter("updatedAt"));
 		Student student = new Student();
 		student.setAccountId(accountId);
 		student.setAddress(address);
 		student.setBod(bod);
 		student.setCmnd(cmnd);
-		student.setCreatedAt(createdAt);
+		student.setCreatedAt(new Date().getTime());
 		student.setEmail(email);
 		student.setGender(gender);
 		student.setMediumScore(mediumScore);
@@ -125,14 +145,16 @@ public class StudentController extends HttpServlet {
 		student.setPhone(phone);
 		student.setRollNumber(rollNum);
 		student.setStatus(status);
-		student.setUpdatedAt(updatedAt);
-		
+		student.setUpdatedAt(new Date().getTime());
+		System.out.println(student.toString());
 		StudentModel.createStudent(student);
-		response.sendRedirect("list");
+		response.sendRedirect("/StudentController/list");
 	}
 
 	private void updateStudent(HttpServletRequest request, HttpServletResponse response) 
 			throws SQLException, IOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		long bod = 0;
 		String rollNum = request.getParameter("rollNumber");
 		String gender = request.getParameter("gender");
 		String name = request.getParameter("name");
@@ -143,15 +165,17 @@ public class StudentController extends HttpServlet {
 		String accountId = request.getParameter("accountId");
 		Float mediumScore = Float.parseFloat(request.getParameter("mediumScore"));
 		int status = Integer.parseInt(request.getParameter("status"));
-		long bod = Long.parseLong(request.getParameter("bod"));
-		long createdAt = Long.parseLong(request.getParameter("createdAt"));
-		long updatedAt = Long.parseLong(request.getParameter("updatedAt"));
+		try {
+			Date datebirth = sdf.parse(request.getParameter("bod"));
+			bod =  datebirth.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		Student student = new Student();
 		student.setAccountId(accountId);
 		student.setAddress(address);
 		student.setBod(bod);
 		student.setCmnd(cmnd);
-		student.setCreatedAt(createdAt);
 		student.setEmail(email);
 		student.setGender(gender);
 		student.setMediumScore(mediumScore);
@@ -159,9 +183,9 @@ public class StudentController extends HttpServlet {
 		student.setPhone(phone);
 		student.setRollNumber(rollNum);
 		student.setStatus(status);
-		student.setUpdatedAt(updatedAt);
+		student.setUpdatedAt(new Date().getTime());
 		StudentModel.updateStudent(student);
-		response.sendRedirect("list");
+		response.sendRedirect("/StudentController/list");
 	}
 
 	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) 
@@ -169,7 +193,7 @@ public class StudentController extends HttpServlet {
 		String rollNumber = request.getParameter("rollNumber");
 
 		StudentModel.deleteStudent(rollNumber);
-		response.sendRedirect("list");
+		response.sendRedirect("/StudentController/list");
 
 	}
 
