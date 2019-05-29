@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-    <title>Student Life Care</title>
-  </head>
+<head>
+<meta http-equiv="content-type"
+	content="application/xhtml+xml; charset=UTF-8" />
+<title>Student Life Care</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script src="cookie.js"></script>
+</head>
 
-  <body>
-    <h2>Student Management</h2>
-      
-     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="Login">Login</a></li>
-        <li><a href="subject">Subject</a>
-        <li><a href="score">Score</a>
-     </ul>
-  </body>
+<body>
+	<div class="container">
+		<label for="uname"><b>Username</b></label> <input type="text"
+			placeholder="Enter Username" id="username" name="uname" required>
+		<label for="psw"><b>Password</b></label> <input type="password"
+			id="password" placeholder="Enter Password" name="psw" required>
+
+		<button id="login">Login</button>
+
+	</div>
+	<script>
+		$("#login")
+				.click(
+						function() {
+							var username = $("#username").val();
+							var password = $("#password").val();
+							if (username.length < 6) {
+								alert('Please enter an username.');
+								return;
+							}
+							if (password.length < 6) {
+								alert('Please enter a password.');
+								return;
+							}
+							console.log("sign in");
+							$
+									.ajax({
+										url : "/Login?username=" + username
+												+ "&password=" + password,
+										type : 'POST',
+										success : function(data) {
+											var now = new Date();
+											var time = now.getTime();
+											time += 3600 * 12 * 1000;
+											now.setTime(time);
+
+											document.cookie = 'username='
+													+ username + '; expires='
+													+ now.toUTCString()
+													+ '; path=/';
+											window.location = "/StudentController/list";
+										},
+										error : function(jqXHR, textStatus,
+												errorThrown) {
+											if (jqXHR.status == 404) {
+												alert("Account does not exist or error passWord!");
+											}
+										}
+									});
+						});
+	</script>
+</body>
 </html>

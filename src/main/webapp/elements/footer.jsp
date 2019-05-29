@@ -78,6 +78,7 @@
 	<!-- tawk chat JS
 		============================================ -->
     <script src="js/tawk-chat.js"></script>
+    <script src="../cookie.js"></script> 
     <script>
 	$("#login").click(function() {
 		var username = $("#username").val();
@@ -95,7 +96,16 @@
 			url : "/Login?username=" + username + "&password=" + password,
 			type : 'POST',
 			success : function(data) {
-				alert("Login success");
+				var now = new Date();
+            	var time = now.getTime();
+            	time += 3600 * 12 * 1000;
+            	now.setTime(time);
+            	
+            	document.cookie = 
+                	'username=' + username + 
+                	'; expires=' + now.toUTCString() + 
+                	'; path=/';
+                	window.location="/StudentController/list";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				if (jqXHR.status == 404) {
