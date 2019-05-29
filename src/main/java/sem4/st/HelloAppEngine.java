@@ -16,8 +16,13 @@ import javax.servlet.http.HttpServletResponse;
     urlPatterns = {"/hello"}
 )
 public class HelloAppEngine extends HttpServlet {
+	
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-  @Override
+@Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 	  Connection connection = null;
@@ -41,4 +46,6 @@ public class HelloAppEngine extends HttpServlet {
     response.getWriter().print("Hello App Engine!\r\n");
 
   }
+  
+  
 }
