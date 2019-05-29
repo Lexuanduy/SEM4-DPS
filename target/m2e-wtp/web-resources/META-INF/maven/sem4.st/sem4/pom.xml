@@ -59,6 +59,7 @@
 <groupId>com.google.appengine</groupId>
 <artifactId>appengine-api-1.0-sdk</artifactId>
 <version>1.9.74</version>
+
 </dependency>
 <!-- Test Dependencies -->
     <dependency>
