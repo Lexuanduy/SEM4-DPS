@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+/*import javax.servlet.annotation.WebServlet;*/
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,22 +17,24 @@ import sem4.st.model.SubjectModel;
 /**
  * Servlet implementation class Subject
  */
-@WebServlet("/SubjectServlet")
+/* @WebServlet("/SubjectServlet") */
 public class SubjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SubjectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SubjectServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getServletPath();
 
@@ -63,16 +65,18 @@ public class SubjectServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
+
 	private void listSubject(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List< Subject > listSubject = SubjectModel.listAllSubject();
+		List<Subject> listSubject = SubjectModel.listAllSubject();
 		request.setAttribute("listSubject", listSubject);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/SubjectList.jsp");
 		dispatcher.forward(request, response);
@@ -94,7 +98,8 @@ public class SubjectServlet extends HttpServlet {
 
 	}
 
-	private void insertSubject(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void insertSubject(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		String name = request.getParameter("name");
 		Subject newSubject = new Subject();
 		newSubject.setName(name);
@@ -102,7 +107,8 @@ public class SubjectServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 
-	private void updateSubject(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void updateSubject(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		long updatedAt = Long.parseLong(request.getParameter("updatedAt"));
@@ -115,7 +121,8 @@ public class SubjectServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 
-	private void deleteSubject(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void deleteSubject(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		String id = request.getParameter("id");
 		SubjectModel.deleteSubject(id);
 		response.sendRedirect("list");
