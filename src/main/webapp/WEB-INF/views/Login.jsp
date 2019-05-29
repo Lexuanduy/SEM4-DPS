@@ -12,7 +12,7 @@
 		<button id="login">Login</button>
 	</div>
 	</div>
-	<script>
+	<!-- <script>
 		$("#login")
 				.click(
 						function() {
@@ -46,5 +46,5 @@
 										}
 									});
 						});
-	</script>
+	</script> -->
 <jsp:include page="/elements/footer.jsp" />
