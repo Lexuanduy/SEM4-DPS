@@ -82,6 +82,13 @@ public class Student {
 	public void setUpdatedAt(long updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	private String bodString;
+	public String getBodString() {
+		return bodString;
+	}
+	public void setBodString(String bodString) {
+		this.bodString = bodString;
+	}
 	private String rollNumber;
 	private String accountId;
 	private String name;
