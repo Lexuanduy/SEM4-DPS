@@ -84,16 +84,15 @@ public class StudentModel {
 		return false;
 	}
 	
-	public static List<Student> listAllStudent(String studentName,String rollNumber,int page) {
-		logger.info("test3333 - "+studentName+"-"+rollNumber+"-"+page);
+	public static List<Student> listAllStudent(String search,int page) {
 		List<Student> studentList = new ArrayList<Student>();
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Connection cnn = DBConnection.getInstance().getConnection();
-			PreparedStatement ps = cnn.prepareStatement("select * from student where name like ? and rollNumber like ? limit 10 offset ? ");
+			PreparedStatement ps = cnn.prepareStatement("select * from student where name like ? or rollNumber like ? limit 10 offset ? ");
 			ps.setInt(3, (page-1)*10);
-			ps.setString(1, "%"+studentName+"%");
-			ps.setString(2, "%"+rollNumber+"%");
+			ps.setString(1, "%"+search+"%");
+			ps.setString(2, "%"+search+"%");
 			logger.info("query - "+ps.toString());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
