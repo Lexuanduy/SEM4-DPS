@@ -31,5 +31,31 @@
       <url-pattern>/StudentController/delete</url-pattern>
       <url-pattern>/StudentController/update</url-pattern>
   </servlet-mapping>
+  
+<filter>
+  <filter-name>LogFilter</filter-name>
+  <filter-class>sem4.st.LogFilter</filter-class>
+</filter>
+
+<filter-mapping>
+  <filter-name>LogFilter</filter-name>
+  <url-pattern>/StudentController/list</url-pattern>
+</filter-mapping>
+
+<filter-mapping>
+  <filter-name>LogFilter</filter-name>
+  <url-pattern>/StudentController/new</url-pattern>
+</filter-mapping>
+
+<filter-mapping>
+  <filter-name>LogFilter</filter-name>
+  <url-pattern>/StudentController/insert</url-pattern>
+</filter-mapping>
+
+<filter-mapping>
+  <filter-name>LogFilter</filter-name>
+  <url-pattern>/StudentController/insert</url-pattern>
+</filter-mapping>
+
 
 </web-app>
