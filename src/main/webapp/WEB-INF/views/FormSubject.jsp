@@ -5,43 +5,35 @@
 
 <div align="center">
 	<h1>User Management</h1>
-	<h2>
-		<a href="new">Add New Subject</a> &nbsp;&nbsp;&nbsp; <a href="list">List
-			All Subject</a>
-
-	</h2>
 </div>
 <div align="center">
 	<c:if test="${subject != null}">
-		<form action="update" method="post">
+		<form action="/SubjectServlet/update" method="post">
 	</c:if>
 	<c:if test="${subject == null}">
-		<form action="insert" method="post">
+		<form action="/SubjectServlet/insert" method="post">
 	</c:if>
-	<table border="1" cellpadding="5">
-		<caption>
-			<h2>
-				<c:if test="${subject != null}">
-               Edit User
-              </c:if>
-				<c:if test="${subject == null}">
-               Add New Subject
-              </c:if>
-			</h2>
-		</caption>
-		<c:if test="${subject != null}">
-			<input type="hidden" name="id"
-				value="<c:out value='${subject.id}' />" />
-		</c:if>
-		<tr>
-			<th>User Name:</th>
-			<td><input type="text" name="name" size="45"
-				value="<c:out value='${subject.name}' />" /></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center"><input type="submit" value="Save" /></td>
-		</tr>
-	</table>
+	<div class="container">
+		<div  class="form-group col-md-7">
+			<label class="control-label col-sm-3">ID: </label>
+			<div class="col-md-9">
+				<input  type="text" name="id" class="form-control"
+					value="<c:out value='${subject.id}' />" />
+			</div>
+		</div>
+
+
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Name: </label>
+			<div class="col-md-9">
+				<input type="text" name="name" class="form-control"
+					value="<c:out value='${subject.name}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<button class="btn btn-success" type="submit">Save</button>
+		</div>
+	</div>
 	</form>
 </div>
 <jsp:include page="/elements/footer.jsp" />

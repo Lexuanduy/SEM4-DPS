@@ -15,14 +15,15 @@ public class SubjectModel {
 	static Logger logger = Logger.getLogger(AccountModel.class.getName());
 
 	public static boolean createSubject(Subject subject) throws SQLException {
-		String sql = "INSERT INTO subject (name, status, createdAt, updatedAt) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO subject (id, name, status, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)";
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
-			ps.setString(10, subject.getName());
-			ps.setInt(11, subject.getStatus());
-			ps.setLong(12, subject.getCreatedAt());
-			ps.setLong(13, subject.getUpdatedAt());
+			ps.setString(1, subject.getId());
+			ps.setString(2, subject.getName());
+			ps.setInt(3, subject.getStatus());
+			ps.setLong(4, subject.getCreatedAt());
+			ps.setLong(5, subject.getUpdatedAt());
 			ps.execute();
 			return true;
 		} catch (Exception e) {
@@ -42,11 +43,13 @@ public class SubjectModel {
 			ResultSet rs = ps.executeQuery(sql);
 			while (rs.next()) {
 				Subject subject = new Subject();
+				String id = rs.getString("id");
 				String name = rs.getString("name");
 				int status = rs.getInt("status");
 				long createdAt = rs.getLong("createdAt");
 				long updatedAt = rs.getLong("updatedAt");
 				subject.setCreatedAt(createdAt);
+				subject.setId(id);
 				subject.setName(name);
 				subject.setStatus(status);
 				subject.setUpdatedAt(updatedAt);
@@ -60,16 +63,15 @@ public class SubjectModel {
 	}
 
 	public static boolean updateSubject(Subject subject) throws SQLException {
-		String sql = "UPDATE subject SET name = ?, createdAt = ?, updatedAt = ?";
+		System.out.println(subject.toString());
+		String sql = "UPDATE subject SET name = ?, updatedAt = ?";
 		sql += " WHERE id = ?";
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(sql);
 			ps.setString(1, subject.getName());
-			ps.setInt(2, subject.getStatus());
-			ps.setLong(3, subject.getCreatedAt());
-			ps.setLong(4, subject.getUpdatedAt());
-			ps.setString(4, subject.getId());
+			ps.setLong(2, subject.getUpdatedAt());
+			ps.setString(3, subject.getId());
 			ps.execute();
 			return true;
 		} catch (Exception e) {
@@ -96,7 +98,7 @@ public class SubjectModel {
 	}
 
 	public static Subject SearchById(String id) throws SQLException {
-		String sql = "SELECT id,name,createdAt,updatedAt from subject where id =?";
+		String sql = "SELECT id,status,name,createdAt,updatedAt from subject where id =?";
 		Subject subject = null;
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
@@ -106,6 +108,7 @@ public class SubjectModel {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
+				String subjectId = rs.getString("id");
 				String name = rs.getString("name");
 				int status = rs.getInt("status");
 				long createdAt = rs.getLong("createdAt");
@@ -115,6 +118,7 @@ public class SubjectModel {
 				subject.setName(name);
 				subject.setStatus(status);
 				subject.setUpdatedAt(updatedAt);
+				subject.setId(subjectId);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

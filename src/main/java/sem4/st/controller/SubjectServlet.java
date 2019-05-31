@@ -2,6 +2,7 @@ package sem4.st.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -92,40 +93,48 @@ public class SubjectServlet extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		String id = request.getParameter("id");
 		Subject existingSubject = SubjectModel.SearchById(id);
+		System.out.println(existingSubject.toString());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/FormSubject.jsp");
-		request.setAttribute("user", existingSubject);
+		request.setAttribute("subject", existingSubject);
 		dispatcher.forward(request, response);
 
 	}
 
 	private void insertSubject(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		Subject newSubject = new Subject();
+		newSubject.setId(id);
 		newSubject.setName(name);
+		newSubject.setStatus(1);
+		newSubject.setCreatedAt(new Date().getTime());
+		newSubject.setUpdatedAt(new Date().getTime());
 		SubjectModel.createSubject(newSubject);
-		response.sendRedirect("list");
+		response.sendRedirect("/SubjectServlet");
 	}
 
 	private void updateSubject(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
-		long updatedAt = Long.parseLong(request.getParameter("updatedAt"));
+		/* long updatedAt = Long.parseLong(request.getParameter("updatedAt")); */
 
 		Subject subject = new Subject();
 		subject.setId(id);
 		subject.setName(name);
-		subject.setUpdatedAt(updatedAt);
+		subject.setStatus(1);
+		subject.setUpdatedAt(new Date().getTime());
+		System.out.println(subject.toString());
 		SubjectModel.updateSubject(subject);
-		response.sendRedirect("list");
+		response.sendRedirect("/SubjectServlet");
 	}
 
 	private void deleteSubject(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		String id = request.getParameter("id");
 		SubjectModel.deleteSubject(id);
-		response.sendRedirect("list");
+		response.sendRedirect("/SubjectServlet");
 
 	}
 
