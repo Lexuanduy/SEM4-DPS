@@ -41,9 +41,9 @@
                     <td><c:out value="${student.mediumScore}" /></td>
                     <td><c:out value="${student.email}" /></td>
                     <td>
-                    	<a href="edit?rollNumber=<c:out value='${student.rollNumber}' />">Edit</a>
+                    	<a href="/StudentController/edit?rollNumber=<c:out value='${student.rollNumber}' />">Edit</a>
                     	&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a href="delete?rollNumber=<c:out value='${student.rollNumber}' />">Delete</a>                    	
+                    	<a href="/StudentController/delete?rollNumber=<c:out value='${student.rollNumber}' />">Delete</a>                    	
                     </td>
                 </tr>
             </c:forEach>
