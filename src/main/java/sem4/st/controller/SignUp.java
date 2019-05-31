@@ -1,9 +1,11 @@
 package sem4.st.controller;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -17,18 +19,18 @@ import sem4.st.entities.Account;
 import sem4.st.model.AccountModel;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class SignUp
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
-	static Logger logger = Logger.getLogger(Login.class.getName());
+@WebServlet("/SignUp")
+public class SignUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	static Logger LOGGER = Logger.getLogger(SignUp.class.getName());
 	AccountModel accountModel = new AccountModel();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Login() {
+	public SignUp() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,8 +42,7 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/Login.jsp");
+		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/SignUp.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -54,46 +55,35 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		String userName = request.getParameter("username");
 		String passWord = request.getParameter("password");
-		Account acc = new Account();
-		acc.setUserName(userName);
-		acc.setPassWord(passWord);
+		
+		LOGGER.info("userName: " + userName);
+		LOGGER.info("passWord: " + passWord);
 
-		if (login(acc) == true) {
+//		byte[] array = new byte[7]; // length is bounded by 7
+//		new Random().nextBytes(array);
+		String salt = String.valueOf(System.currentTimeMillis());
+		LOGGER.info("salt: " + salt);
+
+		String passEnd = generatePassword(passWord, salt);
+
+		Account acc = new Account();
+		acc.setId("Acc1");
+		acc.setUserName(userName);
+		acc.setPassWord(passEnd);
+		acc.setSalt(salt);
+		acc.setCreatedAt(System.currentTimeMillis());
+		acc.setUpdatedAt(System.currentTimeMillis());
+		if (accountModel.register(acc) == true) {
 			response.setStatus(200);
 		} else {
 			response.setStatus(404);
 		}
 	}
 
-	private boolean login(Account acc) {
-		// TODO Auto-generated method stub
-		Account acc2 = accountModel.searchByName(acc.getUserName());
-		String salt = acc2.getSalt();
-		logger.info("salt: " + salt);
-		String passWord = acc.getPassWord();
-		logger.info("passWord: " + passWord);
-
-		String passEnd = generatePassword(passWord, salt);
-		logger.info("passEnd: " + passEnd);
-
-		if (acc2 == null) {
-			logger.info("userName not exist!");
-			return false;
-		} else {
-			if (passEnd.equals(acc2.getPassWord())) {
-				logger.info("login success!");
-				return true;
-			} else {
-				logger.info("login error passWord!");
-				return false;
-			}
-		}
-	}
-
 	private String generatePassword(String passFirst, String salt) {
 		// TODO Auto-generated method stub
 		String str = passFirst + salt;
-		logger.info("str: " + str);
+		LOGGER.info("str: " + str);
 		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance("MD5");
@@ -109,8 +99,9 @@ public class Login extends HttpServlet {
 
 		String passEnd = sb.toString();
 
-		logger.info("passEnd: " + passEnd);
+		LOGGER.info("passEnd: " + passEnd);
 		return passEnd;
 	}
+	
 
 }

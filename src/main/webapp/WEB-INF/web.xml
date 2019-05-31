@@ -93,5 +93,4 @@
 		<filter-name>LogFilter</filter-name>
 		<url-pattern>/SubjectServlet/update</url-pattern>
 	</filter-mapping>
-
 </web-app>
