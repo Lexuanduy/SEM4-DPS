@@ -1,136 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-	<title>Student Management Application</title>
-</head>
-<body>
-	<center>
-		<h1>Student Management</h1>
-        <h2>
-        	<a href="new">Add New Student</a>
-        	&nbsp;&nbsp;&nbsp;
-        	<a href="list">List All Students</a>
-        	
-        </h2>
-	</center>
-    <div align="center">
-		<c:if test="${student != null}">
-			<form action="update" method="post">
-        </c:if>
-        <c:if test="${student == null}">
-			<form action="insert" method="post">
-        </c:if>
-        <table border="1" cellpadding="9">
-            <caption>
-            	<h2>
-            		<c:if test="${student != null}">
-            			Edit Student
-            		</c:if>
-            		<c:if test="${student == null}">
-            			Add New Student
-            		</c:if>
-            	</h2>
-            </caption>
-        		<c:if test="${student != null}">
-        			<input type="hidden" name="rollNumber" value="<c:out value='${student.rollNumber}' />" />
-        		</c:if>            
-            <tr>
-                <th>Name: </th>
-                <td>
-                	<input type="text" name="name" 
-                			value="<c:out value='${student.name}' />"
-                		/>
-                </td>
-            </tr>
-            <tr>
-                <th>Roll Number: </th>
-                <td>
-                	<input type="text" name="rollNumber" 
-                			value="<c:out value='${student.rollNumber}' />"
-                		/>
-                </td>
-            </tr>
-            <tr>
-                <th>Gender: </th>
-                <td>
-                	<input type="text" name="gender" 
-                			value="<c:out value='${student.gender}' />"
-                	/>
-                </td>
-            </tr>
-            <tr>
-                <th>Birth Of Date: </th>
-                <td>
-                	<input type="text" name="bod" 
-                			value="<c:out value='${student.bodString}' />"
-                	/>
-                </td>
-            </tr>
-             <tr>
-                <th>Medium Score: </th>
-                <td>
-                	<input type="text" name="mediumScore" 
-                			value="<c:out value='${student.mediumScore}' />"
-                	/>
-                </td>
-            </tr>
-             <tr>
-                <th>Phone: </th>
-                <td>
-                	<input type="text" name="phone" 
-                			value="<c:out value='${student.phone}' />"
-                	/>
-                </td>
-            </tr>
-             <tr>
-                <th>Status: </th>
-                <td>
-                	<input type="text" name="status"
-                			value="<c:out value='${student.status}' />"
-                	/>
-                </td>
-            </tr>
-             <tr>
-                <th>Address: </th>
-                <td>
-                	<input type="text" name="address"
-                			value="<c:out value='${student.address}' />"
-                	/>
-                </td>
-            </tr>
-            <tr>
-                <th>Cmnd: </th>
-                <td>
-                	<input type="text" name="cmnd"
-                			value="<c:out value='${student.cmnd}' />"
-                	/>
-                </td>
-            </tr>
-            <tr>
-                <th>Email: </th>
-                <td>
-                	<input type="text" name="email"
-                			value="<c:out value='${student.email}' />"
-                	/>
-                </td>
-            </tr>
-            <tr>
-                <th>Account ID: </th>
-                <td>
-                	<input type="text" name="accountId"
-                			value="<c:out value='${student.accountId}' />"
-                	/>
-                </td>
-            </tr>
-            <tr>
-            	<td colspan="2" align="center">
-            		<input type="submit" value="Save" />
-            	</td>
-            </tr>
-        </table>
-        </form>
-    </div>	
-</body>
-</html>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="/elements/header.jsp" />
+<div align="center">
+	<c:if test="${student != null}">
+		<form class="form-horizontal" action="update" method="post">
+	</c:if>
+	<c:if test="${student == null}">
+		<form class="form-horizontal" action="insert" method="post">
+	</c:if>
+
+	<div class="container">
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Name: </label>
+			<div class="col-md-9">
+				<input type="text" name="name" class="form-control"
+					value="<c:out value='${student.name}' />" />
+			</div>
+		</div>
+
+
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Roll Number: </label>
+			<div class="col-md-9">
+				<input type="text" name="rollNumber" class="form-control"
+					value="<c:out value='${student.rollNumber}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Gender: </label>
+			<div class="col-md-9">
+				<input type="text" name="gender" class="form-control"
+					value="<c:out value='${student.gender}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Birth Of Date: </label>
+			<div class="col-md-9">
+				<input type="text" name="bod" class="form-control"
+					value="<c:out value='${student.bodString}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Medium Score: </label>
+			<div class="col-md-9">
+				<input type="text" name="mediumScore" class="form-control"
+					value="<c:out value='${student.mediumScore}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Phone: </label>
+			<div class="col-md-9">
+				<input type="text" name="phone" class="form-control"
+					value="<c:out value='${student.phone}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Status: </label>
+			<div class="col-md-9">
+				<input type="text" name="status" class="form-control"
+					value="<c:out value='${student.status}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Address: </label>
+			<div class="col-md-9">
+				<input type="text" name="address" class="form-control"
+					value="<c:out value='${student.address}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Cmnd: </label>
+			<div class="col-md-9">
+				<input type="text" name="cmnd" class="form-control"
+					value="<c:out value='${student.cmnd}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Email: </label>
+			<div class="col-md-9">
+				<input type="text" name="email" class="form-control"
+					value="<c:out value='${student.email}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<label class="control-label col-sm-3">Account ID: </label>
+			<div class="col-md-9">
+				<input type="text" name="accountId" class="form-control"
+					value="<c:out value='${student.accountId}' />" />
+			</div>
+		</div>
+		<div class="form-group col-md-7">
+			<button class="btn btn-success" type="submit">Save</button>
+		</div>
+	</div>
+
+
+	</form>
+</div>
+<jsp:include page="/elements/footer.jsp" />
