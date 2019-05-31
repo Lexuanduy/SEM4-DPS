@@ -79,13 +79,9 @@ public class StudentController extends HttpServlet {
 	
 	private void listStudent(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		String rollNumber = request.getParameter("rollNumber") == null ? "" : request.getParameter("rollNumber");
-		String name = request.getParameter("name") == null  ? "" : request.getParameter("name");
+		String search = request.getParameter("search") == null ? "" : request.getParameter("search");;
 		int page = request.getParameter("page") == null  ? 1 : Integer.parseInt(request.getParameter("page"));
-		System.out.println("roll: "+rollNumber);
-		System.out.println("name: "+name);
-		System.out.println("page: "+page);
-		List<Student> listStudent = StudentModel.listAllStudent(name,rollNumber,page);
+		List<Student> listStudent = StudentModel.listAllStudent(search,page);
 		request.setAttribute("listStudent", listStudent);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/StudentList.jsp");
 		dispatcher.forward(request, response);
