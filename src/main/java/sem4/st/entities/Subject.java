@@ -16,6 +16,11 @@ public class Subject {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
+	public String toString() {
+		return "Subject [id=" + id + ", name=" + name + ", status=" + status + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + "]";
+	}
 	public int getStatus() {
 		return status;
 	}
