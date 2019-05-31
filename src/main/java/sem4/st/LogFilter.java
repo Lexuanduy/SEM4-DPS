@@ -38,7 +38,8 @@ public class LogFilter implements Filter {
 				}
 			}
 		}
-		if (!username.equals("rootlkjio")) {
+		logger.info("username: " + username);
+		if (!username.equals("duyle10")) {
 			logger.info("not admin");
 			res.sendRedirect("/Login");
 			return;

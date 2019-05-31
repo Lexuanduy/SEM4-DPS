@@ -11,11 +11,18 @@ import sem4.st.entities.Account;
 
 public class AccountModel {
 	static Logger logger = Logger.getLogger(AccountModel.class.getName());
+
 	public boolean register(Account account) {
 		try {
 			Connection cnn = DBConnection.getInstance().getConnection();
 			PreparedStatement ps = cnn.prepareStatement(
-					"insert into 'account' ('id', 'userName', 'passWord', 'salt', 'createdAt', 'updatedAt') values (?,?,?,?,?,?)");
+					"insert into account (id, userName, passWord, salt, createdAt, updatedAt) values (?,?,?,?,?,?)");
+			logger.info("id: " + account.getId());
+			logger.info("username: " + account.getUserName());
+			logger.info("PASS: " + account.getPassWord());
+			logger.info("salt: " + account.getSalt());
+			logger.info("createdAt: " + account.getCreatedAt());
+			logger.info("updatedAt: " + account.getUpdatedAt());
 			ps.setString(1, account.getId());
 			ps.setString(2, account.getUserName());
 			ps.setString(3, account.getPassWord());
