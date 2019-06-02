@@ -40,6 +40,7 @@ public class Score {
 	public void setUpdatedAt(long updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	private String idSubject;
 	private String idStudent;
 	private int score;
