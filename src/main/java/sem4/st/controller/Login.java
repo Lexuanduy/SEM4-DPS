@@ -51,7 +51,6 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String userName = request.getParameter("username");
 		String passWord = request.getParameter("password");
 		Account acc = new Account();
@@ -66,7 +65,6 @@ public class Login extends HttpServlet {
 	}
 
 	private boolean login(Account acc) {
-		// TODO Auto-generated method stub
 		Account acc2 = accountModel.searchByName(acc.getUserName());
 		String salt = acc2.getSalt();
 		logger.info("salt: " + salt);

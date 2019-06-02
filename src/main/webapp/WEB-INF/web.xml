@@ -80,7 +80,7 @@
 
 	<filter-mapping>
 		<filter-name>LogFilter</filter-name>
-		<url-pattern>/StudentController/insert</url-pattern>
+		<url-pattern>/StudentController/update</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>

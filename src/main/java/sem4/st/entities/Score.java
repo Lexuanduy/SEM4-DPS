@@ -47,4 +47,34 @@ public class Score {
 	private String accountId;
 	private long createdAt;
 	private long updatedAt;
+	private int scoreId;
+	private String studentName;
+	private String subjectName;
+	public int getScoreId() {
+		return scoreId;
+	}
+	public void setScoreId(int scoreId) {
+		this.scoreId = scoreId;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	@Override
+	public String toString() {
+		return "Score [idSubject=" + idSubject + ", idStudent=" + idStudent + ", score=" + score + ", accountId="
+				+ accountId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", scoreId=" + scoreId
+				+ ", studentName=" + studentName + ", subjectName=" + subjectName + "]";
+	}
+	
+	
+	
 }

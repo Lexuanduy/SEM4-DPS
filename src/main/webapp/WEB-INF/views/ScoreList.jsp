@@ -5,7 +5,7 @@
 <div class="container">
 
 	<div style="clear:both;">
-		<a href="/ScoreManager/new" class="btn btn-success">Add New Score</a>
+		<a style="float:right;" href="/ScoreManager/new" class="btn btn-success">Add New Score</a>
         
 	</div>
 </div>
@@ -14,7 +14,7 @@
             <caption><h2>List of Scores</h2></caption>
             <tr>
                 <th>Roll Number</th>
-                <th>Name</th>
+                <th>Student Name</th>
                 <th>Subject</th>
                 <th>Mark</th>
                 <th>Created By</th>
@@ -23,15 +23,15 @@
             <c:forEach var="score" items="${listScores}">
                 <tr>
                     <td><c:out value="${score.idStudent}" /></td>
-                    <td><c:out value="${score.name}" /></td>
-                    <td><c:out value="${score.idSubject}" /></td>
+                    <td><c:out value="${score.studentName}" /></td>
+                    <td><c:out value="${score.subjectName}" /></td>
                     <td><c:out value="${score.score}" /></td>
                     <td><c:out value="${score.accountId}" /></td>
                     <td>
-                    	<a href="/ScoreManager/edit?stuId=<c:out value='${score.idStudent}'&subId=<c:out value='score.idSubject'/>">Edit</a>
+                    	<a href="/ScoreManager/edit?scoreId=<c:out value='${score.scoreId}'/>">Edit</a>
                     	&nbsp;&nbsp;&nbsp;&nbsp;
                     	<a
-					href="/ScoreManager/delete?stuId=<c:out value='${score.idStudent}'&subId=<c:out value='score.idSubject'/>">Delete</a>                  	
+					href="/ScoreManager/delete?scoreId=<c:out value='${score.scoreId}'/>">Delete</a>                  	
                     </td>
                 </tr>
             </c:forEach>

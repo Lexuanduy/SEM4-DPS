@@ -9,11 +9,11 @@
 			<label for="search">Search:</label>
     		<input type="text" name="search" class="form-control" >
 		</div>	
-		
+		<a href="new" style="float:right;" class="btn btn-success">Add New Student</a>
 	</form>
 	</div>
 	<div style="clear:both;">
-		<a href="new" class="btn btn-success">Add New Student</a>
+		
         
 	</div>
     <div align="center">

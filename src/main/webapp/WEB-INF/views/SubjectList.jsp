@@ -5,7 +5,7 @@
 <div class="container">
 
 	<div style="clear:both;">
-		<a href="/SubjectServlet/new" class="btn btn-success">Add New Subject</a>
+		<a style="float:right;" href="/SubjectServlet/new" class="btn btn-success">Add New Subject</a>
         
 	</div>
 </div>

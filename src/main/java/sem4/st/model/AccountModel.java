@@ -33,6 +33,8 @@ public class AccountModel {
 			return true;
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return false;
 	}
@@ -59,6 +61,8 @@ public class AccountModel {
 				acc.setUpdatedAt(updatedAt);
 			}
 		} catch (SQLException ex) {
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return acc;
 	}
