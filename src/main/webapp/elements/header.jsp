@@ -104,9 +104,9 @@
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="/StudentController/list">List Student</a>
                                 </li>
-                                <li><a href="/subjectservlet">List Subject</a>
+                                <li><a href="/SubjectServlet">List Subject</a>
                                 </li>
-                                <li><a href="">List Score</a>
+                                <li><a href="/ScoreManager">List Score</a>
                                 </li>
                             </ul>
                         </div>
