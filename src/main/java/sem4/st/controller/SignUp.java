@@ -55,19 +55,19 @@ public class SignUp extends HttpServlet {
 		// TODO Auto-generated method stub
 		String userName = request.getParameter("username");
 		String passWord = request.getParameter("password");
-		
+
 		LOGGER.info("userName: " + userName);
 		LOGGER.info("passWord: " + passWord);
 
-//		byte[] array = new byte[7]; // length is bounded by 7
-//		new Random().nextBytes(array);
-		String salt = String.valueOf(System.currentTimeMillis());
+		String salt = getAlphaNumericString();
+
+//		String salt = String.valueOf(System.currentTimeMillis());
 		LOGGER.info("salt: " + salt);
 
 		String passEnd = generatePassword(passWord, salt);
 
 		Account acc = new Account();
-		acc.setId("Acc1");
+		acc.setId(String.valueOf(System.currentTimeMillis() / 1000));
 		acc.setUserName(userName);
 		acc.setPassWord(passEnd);
 		acc.setSalt(salt);
@@ -78,6 +78,19 @@ public class SignUp extends HttpServlet {
 		} else {
 			response.setStatus(404);
 		}
+	}
+
+	private String getAlphaNumericString() {
+		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "02062019" + "abcdefghijklmnopqrstuvxyz";
+
+		StringBuilder sb = new StringBuilder(5);
+
+		for (int i = 0; i < 5; i++) {
+			int index = (int) (AlphaNumericString.length() * Math.random());
+			sb.append(AlphaNumericString.charAt(index));
+		}
+
+		return sb.toString();
 	}
 
 	private String generatePassword(String passFirst, String salt) {
@@ -102,6 +115,5 @@ public class SignUp extends HttpServlet {
 		LOGGER.info("passEnd: " + passEnd);
 		return passEnd;
 	}
-	
 
 }
