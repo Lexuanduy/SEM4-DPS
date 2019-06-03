@@ -39,6 +39,8 @@ public class StudentModel {
 			return true;
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return false;
 	}
@@ -66,6 +68,8 @@ public class StudentModel {
 			return true;
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return false;
 	}
@@ -80,6 +84,8 @@ public class StudentModel {
 			return true;
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return false;
 	}
@@ -132,6 +138,8 @@ public class StudentModel {
 			return studentList;
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return null;
 	}
@@ -174,6 +182,8 @@ public class StudentModel {
 				student.setBodString(sdf.format(new Date(bod)));
 			}
 		} catch (SQLException ex) {
+		} finally{
+			DBConnection.getInstance().closeConnection();
 		}
 		return student;
 	}

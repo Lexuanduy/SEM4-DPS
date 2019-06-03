@@ -48,6 +48,20 @@
 		<url-pattern>/SubjectServlet/delete</url-pattern>
 		<url-pattern>/SubjectServlet/update</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ScoreManager</servlet-name>
+		<servlet-class>sem4.st.controller.ScoreManager</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ScoreManager</servlet-name>
+		<url-pattern>/ScoreManager</url-pattern>
+		<url-pattern>/ScoreManager/edit</url-pattern>
+		<url-pattern>/ScoreManager/new</url-pattern>
+		<url-pattern>/ScoreManager/insert</url-pattern>
+		<url-pattern>/ScoreManager/delete</url-pattern>
+		<url-pattern>/ScoreManager/update</url-pattern>
+	</servlet-mapping>
 
 	<filter>
 		<filter-name>LogFilter</filter-name>
@@ -66,7 +80,7 @@
 
 	<filter-mapping>
 		<filter-name>LogFilter</filter-name>
-		<url-pattern>/StudentController/insert</url-pattern>
+		<url-pattern>/StudentController/update</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>
@@ -92,5 +106,25 @@
 	<filter-mapping>
 		<filter-name>LogFilter</filter-name>
 		<url-pattern>/SubjectServlet/update</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/ScoreManager</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/ScoreManager/new</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/ScoreManager/insert</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/ScoreManager/update</url-pattern>
 	</filter-mapping>
 </web-app>

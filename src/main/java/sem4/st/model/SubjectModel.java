@@ -33,7 +33,7 @@ public class SubjectModel {
 		return false;
 	}
 
-	public static List<Subject> listAllSubject() throws SQLException {
+	public static List<Subject> listAllSubject() {
 		List<Subject> listSubjects = new ArrayList<>();
 
 		String sql = "SELECT * FROM subject";

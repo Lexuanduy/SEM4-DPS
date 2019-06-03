@@ -86,8 +86,8 @@
 		<div class="form-group col-md-7">
 			<label class="control-label col-sm-3">Account ID: </label>
 			<div class="col-md-9">
-				<input type="text" name="accountId" class="form-control"
-					value="<c:out value='${student.accountId}' />" />
+				<input type="text" name="accountId" readonly class="form-control"
+					value="A001" />
 			</div>
 		</div>
 		<div class="form-group col-md-7">
